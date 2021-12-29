@@ -27,11 +27,10 @@ class TransferForm extends React.Component {
         const contract = new ethers.Contract(
             ADDRESS,
             ABI,
-            provider
+            signer
         )
-        const token = contract.connect(signer)
         let numberOfTokensToSend = this.state.numOfTokens * (10 ** DECIMALS)
-        await token.transfer(this.state.receiver, numberOfTokensToSend)
+        await contract.transfer(this.state.receiver, numberOfTokensToSend)
     }
 
     render() {

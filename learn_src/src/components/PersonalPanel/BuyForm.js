@@ -26,14 +26,13 @@ class BuyForm extends React.Component {
         const contract = new ethers.Contract(
             ADDRESS,
             ABI,
-            provider
+            signer
         )
-        const token = contract.connect(signer)
         let numberOfTokensToBuy = this.state.numOfTokens * (10 ** DECIMALS)
         const overrides = {
             value: ethers.utils.parseEther("0.000000001")
         }
-        await token.buy(numberOfTokensToBuy, overrides)
+        await contract.buy(numberOfTokensToBuy, overrides)
     }
 
     render() {
