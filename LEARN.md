@@ -109,7 +109,8 @@ contract Token{
 This is an ERC20 contract, you can see it has all the required functions. There is also a function ``` buy ``` that allows users to buy your token. Go through the code, it simply implements the specifications needed for a fungible token. To be able to interact with a contract on Polygon, we need two things. Guessed it? We need the contract address and ABI. Fortunately, Remix gives you these, make sure to save these somewhere as we are going to use them later on. 
 
 ## Setting up the project
-- Create a react app: ```npx create-react-app your-app-name"
+- Create a react app:
+-   ```npx create-react-app your-app-name```
 - cd into your-app-name
 - Run this in your terminal: ``` npm install ethers ```. 
 - Run ``` npm start ```, a new tab should open in your browser.
