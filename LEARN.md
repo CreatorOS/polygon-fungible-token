@@ -345,13 +345,15 @@ Aaaand again, let's handle the logic in ``` handleSubmit ```, change it to the f
  async handleSubmit(event) {
         event.preventDefault()
         const provider = new ethers.providers.Web3Provider(window.ethereum)
+        await provider.send("eth_requestAccounts", [])
         const signer = provider.getSigner()
         const contract = new ethers.Contract(
             ADDRESS,
             ABI,
             signer
         )
-        let numberOfTokensToSend = this.state.numOfTokens * (10 ** DECIMALS)
+        let numberOfTokensToSend = 
+            ethers.BigNumber.from(10).pow(DECIMALS).mul(this.state.numOfTokens)
         await contract.transfer(this.state.receiver, numberOfTokensToSend)
     }
 ```
@@ -409,15 +411,16 @@ In the contract, we require that a user sends 1 Gwei to call ``` buy ```. How to
  async handleSubmit(event) {
         event.preventDefault()
         const provider = new ethers.providers.Web3Provider(window.ethereum)
+        await provider.send("eth_requestAccounts", [])
         const signer = provider.getSigner()
         const contract = new ethers.Contract(
             ADDRESS,
             ABI,
             signer
         )
-        let numberOfTokensToBuy = this.state.numOfTokens * (10 ** DECIMALS)
+        let numberOfTokensToBuy = ethers.BigNumber.from(10).pow(DECIMALS).mul(this.state.numOfTokens)
         const overrides = {
-            value: ethers.utils.parseEther("0.000000001")
+            value: ethers.utils.parseEther("0.000000001").mul(this.state.numOfTokens)
         }
         await contract.buy(numberOfTokensToBuy, overrides)
     }
